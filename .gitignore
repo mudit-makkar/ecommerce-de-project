@@ -35,3 +35,4 @@ Thumbs.db
 
 # VS Code
 .vscode/settings.json
+/data
