@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "One row per customer with lifetime metrics."
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension with English category names."
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_sellers
+    description: "Seller dimension."
+    columns:
+      - name: seller_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: "Date dimension, 2016-2019, one row per day."
+    columns:
+      - name: date_key
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_orders
+    description: "One row per order. Core fact table."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_key
+
+  - name: fct_order_items
+    description: "One row per order line item."
+    columns:
+      - name: order_item_sk
+        tests:
+          - unique
+          - not_null
+      - name: product_key
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: product_key
+      - name: seller_key
+        tests:
+          - relationships:
+              to: ref('dim_sellers')
+              field: seller_key
