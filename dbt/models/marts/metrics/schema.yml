@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: mart_sales_daily
+    description: "Daily aggregated revenue, orders, and delivery performance."
+    columns:
+      - name: order_date
+        tests:
+          - unique
+          - not_null
+
+  - name: mart_seller_performance
+    description: "One row per seller with revenue, orders, and review performance."
+    columns:
+      - name: seller_key
+        tests:
+          - unique
+          - not_null
+
+  - name: mart_product_category_performance
+    description: "One row per product category with revenue and review metrics."
+    columns:
+      - name: category_name_english
+        tests:
+          - not_null
